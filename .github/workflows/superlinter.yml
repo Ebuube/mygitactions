@@ -1,17 +1,31 @@
-name: Super-Linter
+name: Super-Linter, pycodestyle and Betty
 
 on: push
 
 jobs:
-  super-lint:
+  lint:
     name: Lint codebase
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Install Betty
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+          git clone https://github.com/holbertonschool/Betty.git
+          cd Betty && sudo ./install.sh
+
+      - name: Run Betty on C files
+        run: |
+          betty *.c *.h
 
       - name: Run Super-Linter
         uses: github/super-linter@v5
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          linter_rules_path: .github/linters
