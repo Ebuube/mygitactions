@@ -1,0 +1,7 @@
+linters:
+  c-cpplint: false         # Disable ccplint for C
+  python-flake8: false      # Disable flake8
+  python-pycodestyle: true  # Enable pycodestyle
+  javascript-eslint: true
+  markdown-markdownlint: true
+  yaml-yamlint: true
